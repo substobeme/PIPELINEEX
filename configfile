@@ -19,5 +19,23 @@ pipeline {
             }
         }
     } 
+post {
+    success {
+        emailext subject: "Jenkins Build Successful: ${env.JOB_NAME}",
+                 body: "Build ${env.BUILD_NUMBER} succeeded. Check Jenkins: ${env.BUILD_URL}",
+                 to: 'jenkinssubha@gmail.com'
+    }
+    unstable {
+        emailext subject: "Jenkins Build Unstable: ${env.JOB_NAME}",
+                 body: "Build ${env.BUILD_NUMBER} is unstable. Check Jenkins: ${env.BUILD_URL}",
+                 to: 'jenkinssubha@gmail.com'
+    }
+    failure {
+        emailext subject: "Jenkins Build Failed: ${env.JOB_NAME}",
+                 body: "Build ${env.BUILD_NUMBER} failed. Check Jenkins for details: ${env.BUILD_URL}",
+                 to: 'jenkinssubha@gmail.com'
+    }
+}
+
 }
 
